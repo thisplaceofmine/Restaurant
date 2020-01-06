@@ -19,6 +19,7 @@ const ModalProductForm = props => {
     setInvoiceId(quarryData.invoiceid);
     setOrder(quarryData.order);
     setStatus(quarryData.status);
+     // eslint-disable-next-line
   }, [props.quarry]);
 
   const [validated, setValidated] = useState(false);

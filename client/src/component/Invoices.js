@@ -10,6 +10,7 @@ function Invoices(props) {
   useEffect(() => {
     dispatch(fetchProductList());
     dispatch(fetchInvoiceList());
+    // eslint-disable-next-line
   }, []);
 
   const [modalState, setModalState] = useState(false);

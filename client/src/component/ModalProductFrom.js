@@ -19,6 +19,7 @@ const ModalProductForm = props => {
     setType(defaultType);
     setPrice(defaultPrice);
     setNoSaveWarning(false);
+     // eslint-disable-next-line
   }, [props.quarry]);
 
   const [validated, setValidated] = useState(false);

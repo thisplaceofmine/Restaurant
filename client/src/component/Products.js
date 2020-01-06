@@ -9,6 +9,7 @@ function Products(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProductList());
+    // eslint-disable-next-line
   }, []);
 
   const [modalState, setModalState] = useState(false);

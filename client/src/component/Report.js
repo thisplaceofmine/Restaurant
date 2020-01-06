@@ -10,6 +10,7 @@ const Report = () => {
 
   useEffect(() => {
     dispatch(fetchReport());
+     // eslint-disable-next-line
   }, []);
 
   const storeData = useSelector(state => ({
