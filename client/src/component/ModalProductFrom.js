@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Col, Form } from "react-bootstrap";
-import _ from "lodash";
+import { isUndefined, isNumber } from "lodash";
 import { useDispatch } from "react-redux";
 
 import { createProduct, editProduct, deleteProduct } from "../action";
 
 const ModalProductForm = props => {
   let dispatch = useDispatch();
-  let quarryData = _.isUndefined(props.data[props.quarry]) ?  "Product" : props.data[props.quarry];
-  let defaultProductid = _.isNumber(props.quarry) ? quarryData.productid : "";
-  let defaultName = _.isNumber(props.quarry) ? quarryData.name : "";
-  let defaultType = _.isNumber(props.quarry) ? quarryData.type : "";
-  let defaultPrice = _.isNumber(props.quarry) ? quarryData.price : 0;
+  let quarryData = isUndefined(props.data[props.quarry])
+    ? "Product"
+    : props.data[props.quarry];
+  let defaultProductid = isNumber(props.quarry) ? quarryData.productid : "";
+  let defaultName = isNumber(props.quarry) ? quarryData.name : "";
+  let defaultType = isNumber(props.quarry) ? quarryData.type : "";
+  let defaultPrice = isNumber(props.quarry) ? quarryData.price : 0;
 
   useEffect(() => {
     setProductid(defaultProductid);
@@ -19,7 +21,7 @@ const ModalProductForm = props => {
     setType(defaultType);
     setPrice(defaultPrice);
     setNoSaveWarning(false);
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props.quarry]);
 
   const [validated, setValidated] = useState(false);
@@ -35,7 +37,7 @@ const ModalProductForm = props => {
       productid: productid,
       name: name,
       type: type,
-      price: parseInt(price)
+      price: Number(price)
     };
     let original =
       defaultProductid === productid &&
@@ -43,27 +45,22 @@ const ModalProductForm = props => {
       defaultType === type &&
       defaultPrice === price;
 
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else if (original) {
-      event.preventDefault();
       event.stopPropagation();
       setNoSaveWarning(true);
-    } else if (_.isNumber(props.quarry)) {
+    } else if (isNumber(props.quarry)) {
       setValidated(true);
-      event.preventDefault();
-      console.log(quarryData._id);
       dispatch(editProduct(quarryData._id, output));
     } else {
-      event.preventDefault();
       dispatch(createProduct(output));
     }
-    console.log(output);
   };
 
   let HandleHeader = () => {
-    if (_.isNumber(props.quarry)) {
+    if (isNumber(props.quarry)) {
       return <>{quarryData.name}</>;
     } else {
       return <>{props.quarry}</>;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Col, Form, Row } from "react-bootstrap";
-import _ from "lodash";
+import { isNumber } from "lodash";
 import { useDispatch } from "react-redux";
 
 import { editInvoice, createInvoice } from "../action";
@@ -13,13 +13,13 @@ const ModalProductForm = props => {
     order: [],
     status: "Unfinish"
   };
-  console.log({ ...props });
+
   let dispatch = useDispatch();
   useEffect(() => {
     setInvoiceId(quarryData.invoiceid);
     setOrder(quarryData.order);
     setStatus(quarryData.status);
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props.quarry]);
 
   const [validated, setValidated] = useState(false);
@@ -27,7 +27,7 @@ const ModalProductForm = props => {
   const [order, setOrder] = useState([]);
   const [status, setStatus] = useState();
 
-  const quarryData = _.isNumber(props.quarry)
+  const quarryData = isNumber(props.quarry)
     ? props.invoicedata[props.quarry]
     : emptyInvoice;
 
@@ -38,24 +38,19 @@ const ModalProductForm = props => {
       order: order,
       status: status
     };
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
-    } else if (_.isNumber(props.quarry)) {
-      console.log(props.invoicedata[props.quarry]._id);
-      event.preventDefault();
+    } else if (isNumber(props.quarry)) {
       dispatch(editInvoice(props.invoicedata[props.quarry]._id, output));
     } else {
-      event.preventDefault();
       dispatch(createInvoice(output));
     }
-
     setValidated(true);
-    event.preventDefault();
   };
 
   const Title = () => {
-    if (_.isNumber(props.quarry)) {
+    if (isNumber(props.quarry)) {
       return <div>Invoice: {quarryData.invoiceid}</div>;
     } else return quarryData.invoiceid;
   };
@@ -109,8 +104,9 @@ const ModalProductForm = props => {
               setOrder={setOrder}
             />
             <Row className="d-flex justify-content-between">
-              <Button className="mx-2"
-              type="submit">Submit form</Button>
+              <Button className="mx-2" type="submit">
+                Submit form
+              </Button>
               <div>
                 <Button
                   onClick={() => {
@@ -120,9 +116,9 @@ const ModalProductForm = props => {
                   Debug
                 </Button>
 
-                <Button
-                className="mx-2" 
-                onClick={props.onHide}>Close</Button>
+                <Button className="mx-2" onClick={props.onHide}>
+                  Close
+                </Button>
               </div>
             </Row>
           </Form>

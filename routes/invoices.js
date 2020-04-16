@@ -40,8 +40,8 @@ router.route("/:id").get(async (req, res) => {
 
 router.route("/:id").delete(async (req, res) => {
   try {
-    let temp = await InvoiceModel.findOneAndDelete({ _id: req.params.id });
-    res.status(200).json("Target eliminated");
+    await InvoiceModel.findOneAndDelete({ _id: req.params.id });
+    res.status(204);
   } catch (err) {
     console.log(err);
     res.status(400).json("Error: " + err);
@@ -67,6 +67,5 @@ router.route("/:id").post(async (req, res) => {
     res.status(400).json("#2 Error: " + err);
   }
 });
-
 
 module.exports = router;

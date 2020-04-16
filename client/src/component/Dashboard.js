@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useRef } from "react";
 
-const Dashboard =()=>{
-    return <div>Dashboard</div>
+class Dashboard extends React.Component {
+  render() {
+    return <div>Dashboard</div>;
+  }
 }
 
 export default Dashboard;

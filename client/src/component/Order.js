@@ -1,12 +1,10 @@
 import React from "react";
- // eslint-disable-next-line
-import _ from "lodash";
 
 const Order = props => {
   let handleProListClick = e => {
     let tempArray = [...props.order];
     let reqProduct =
-      props.productdata[parseInt(e.currentTarget.getAttribute("value"))];
+      props.productdata[Number(e.currentTarget.getAttribute("value"))];
 
     let orderedProduct = {
       productid: reqProduct.productid,
@@ -32,7 +30,7 @@ const Order = props => {
 
   let handleOrdListClick = e => {
     let tempArray = [...props.order];
-    let reqProduct = parseInt(e.currentTarget.getAttribute("value"));
+    let reqProduct = Number(e.currentTarget.getAttribute("value"));
 
     if (props.order[reqProduct].number === 1) {
       tempArray.splice(reqProduct, 1);

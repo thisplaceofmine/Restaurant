@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
+import { isEmpty } from "lodash";
 
 import { fetchProductList } from "../action";
 import ModalProductForm from "./ModalProductFrom";
@@ -16,7 +16,7 @@ function Products(props) {
   const [quarry, setQuarry] = useState("Product");
 
   const storeData = useSelector(state => ({
-    Products: state.Product,
+    Products: state.Product
   }));
 
   let handleModalClick = input => {
@@ -25,12 +25,12 @@ function Products(props) {
   };
 
   let handelListClick = e => {
-    let quarryid = parseInt(e.currentTarget.getAttribute("value"));
+    let quarryid = Number(e.currentTarget.getAttribute("value"));
     handleModalClick(quarryid);
   };
 
   let DataList = () => {
-    if (!_.isEmpty(storeData.Products)) {
+    if (!isEmpty(storeData.Products)) {
       return storeData.Products.map((data, i) => {
         return (
           <div

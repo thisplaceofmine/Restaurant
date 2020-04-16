@@ -46,7 +46,7 @@ router.route("/:id").get(async (req, res) => {
 router.route("/:id").delete(async (req, res) => {
   try {
     await ProductsModel.findOneAndDelete({ _id: req.params.id });
-    res.status(200).json("Target eliminated");
+    res.status(204);
   } catch {
     console.log(err);
     res.status(400).json("Error: " + err);
@@ -57,7 +57,6 @@ router.route("/:id").post(async (req, res) => {
   try {
     let temp = await ProductsModel.findOne({ _id: req.params.id });
     try {
-      
       temp.productid = req.body.productid;
       temp.name = req.body.name;
       temp.price = req.body.price;

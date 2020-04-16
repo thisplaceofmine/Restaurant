@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
+import { isEmpty, isUndefined } from "lodash";
 
 import { fetchProductList, fetchInvoiceList } from "../action";
 import ModalInvoiceFrom from "./ModalInvoiceFrom";
@@ -27,13 +27,13 @@ function Invoices(props) {
   };
 
   let handelListClick = e => {
-    let quarryid = parseInt(e.currentTarget.getAttribute("value"));
+    let quarryid = Number(e.currentTarget.getAttribute("value"));
     console.log(quarryid);
     handleModalClick(quarryid);
   };
 
   let DataList = () => {
-    if (!_.isEmpty(storeData.Products)) {
+    if (!isEmpty(storeData.Products)) {
       return storeData.Invoices.map((data, i) => {
         const date = new Date(data.createdAt).toUTCString();
         let sum = 0;
@@ -60,7 +60,7 @@ function Invoices(props) {
   };
 
   let renderOrderList = data => {
-    if (!_.isUndefined(data)) {
+    if (!isUndefined(data)) {
       return data.map((value, i) => {
         return (
           <div className="list-group text-left" key={i}>
@@ -98,7 +98,6 @@ function Invoices(props) {
       <button
         className="ui right floated primary button"
         onClick={() => {
-          console.log(modalState);
         }}
       >
         Debug

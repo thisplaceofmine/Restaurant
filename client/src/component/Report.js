@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import _ from "lodash";
+import { isEmpty } from "lodash";
 
 import { fetchReport } from "../action";
 
@@ -10,7 +10,7 @@ const Report = () => {
 
   useEffect(() => {
     dispatch(fetchReport());
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   const storeData = useSelector(state => ({
@@ -18,7 +18,7 @@ const Report = () => {
   }));
 
   const RenderArray = () => {
-    if (!_.isEmpty(storeData.Report)) {
+    if (!isEmpty(storeData.Report)) {
       let tempArray = [...storeData.Report[0].soldProduct];
 
       tempArray.sort((a, b) => {
@@ -30,7 +30,6 @@ const Report = () => {
         }
         return 0;
       });
-
 
       return tempArray.slice(0, noTopSeller).map((value, i) => {
         return (
@@ -50,24 +49,26 @@ const Report = () => {
     <div>
       <h2 className="my-3">
         Today's Revenue: $
-        {_.isEmpty(storeData.Report)
+        {isEmpty(storeData.Report)
           ? "Loading"
           : storeData.Report[0].dailyRenvenue}
       </h2>
       <div className="my-2 d-flex">
         <h3>Today Top {noTopSeller} Seller</h3>
-        <div class="btn-group ml-3" role="group">
+        <div className="btn-group ml-3" role="group">
           <button
             type="button"
-            class="btn btn-primary"
-            onClick={() => setNoTopSeller(noTopSeller + 1)}
+            className="btn btn-primary"
+            onClick={() => noTopSeller === 10 ? null : setNoTopSeller(noTopSeller + 1)}
           >
             +
           </button>
           <button
             type="button"
-            class="btn btn-secondary"
-            onClick={() => setNoTopSeller(noTopSeller - 1)}
+            className="btn btn-secondary"
+            onClick={() =>
+              noTopSeller === 0 ? null : setNoTopSeller(noTopSeller - 1)
+            }
           >
             -
           </button>
