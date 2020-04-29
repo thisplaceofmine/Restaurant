@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
-import { fetchProductList } from "../action";
-import ModalProductForm from "./ModalProductFrom";
+import { fetchProductList } from '../action';
+import ModalProductForm from './ModalProductFrom';
 
 function Products(props) {
   const dispatch = useDispatch();
@@ -12,21 +12,23 @@ function Products(props) {
     // eslint-disable-next-line
   }, []);
 
+  const defaultProduct = {
+    name: '',
+    price: 0,
+    productid: '',
+    type: '',
+    _id: '',
+  };
   const [modalState, setModalState] = useState(false);
-  const [quarry, setQuarry] = useState("Product");
+  const [quarry, setQuarry] = useState(defaultProduct);
 
-  const storeData = useSelector(state => ({
-    Products: state.Product
+  const storeData = useSelector((state) => ({
+    Products: state.Product,
   }));
 
-  let handleModalClick = input => {
+  let handleModalClick = (input) => {
     setModalState(true);
     setQuarry(input);
-  };
-
-  let handelListClick = e => {
-    let quarryid = Number(e.currentTarget.getAttribute("value"));
-    handleModalClick(quarryid);
   };
 
   let DataList = () => {
@@ -34,15 +36,16 @@ function Products(props) {
       return storeData.Products.map((data, i) => {
         return (
           <div
-            className="ui attached four item menu"
+            className='ui attached four item menu'
             key={i}
-            value={i}
-            onClick={handelListClick}
+            onClick={() => {
+              handleModalClick(data);
+            }}
           >
-            <div className="item">{data.productid}</div>
-            <div className="item">{data.name}</div>
-            <div className="item">{data.type}</div>
-            <div className="item">{data.price}</div>
+            <div className='item'>{data.productid}</div>
+            <div className='item'>{data.name}</div>
+            <div className='item'>{data.type}</div>
+            <div className='item'>{data.price}</div>
           </div>
         );
       });
@@ -50,27 +53,19 @@ function Products(props) {
   };
 
   return (
-    <div className="ui container">
+    <div className='ui container'>
       <h1
-        style={{ paddingTop: "2em", paddingBottom: "1em" }}
-        className="ui center aligned header"
+        style={{ paddingTop: '2em', paddingBottom: '1em' }}
+        className='ui center aligned header'
       >
         Products List
       </h1>
 
       <button
-        className="ui right floated primary button"
-        onClick={() => handleModalClick("Add Product")}
+        className='ui right floated primary button'
+        onClick={() => handleModalClick(defaultProduct)}
       >
         Add Product
-      </button>
-      <button
-        className="ui right floated primary button"
-        onClick={() => {
-          console.log(modalState);
-        }}
-      >
-        Debug
       </button>
       <br />
 
@@ -79,12 +74,13 @@ function Products(props) {
         data={storeData.Products}
         show={modalState}
         onHide={() => setModalState(false)}
+        defaultproduct={defaultProduct}
       />
-      <div className="ui grey inverted four item menu">
-        <div className="item">Product ID</div>
-        <div className="item">Product Name</div>
-        <div className="item">Type</div>
-        <div className="item">Price</div>
+      <div className='ui grey inverted four item menu'>
+        <div className='item'>Product ID</div>
+        <div className='item'>Product Name</div>
+        <div className='item'>Type</div>
+        <div className='item'>Price</div>
       </div>
       {DataList()}
     </div>

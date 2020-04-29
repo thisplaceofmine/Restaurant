@@ -1,60 +1,72 @@
-import React from "react";
+import React from 'react';
 
-const Order = props => {
-  let handleProListClick = e => {
-    let tempArray = [...props.order];
-    let reqProduct =
-      props.productdata[Number(e.currentTarget.getAttribute("value"))];
+const Order = ({
+  productdata,
+  setInvoiceInfo,
+  invoice,
+  setModalError,
+  setIsLoading,
+}) => {
+  const handleSetState = (newState) => {
+    if (invoice.status === 'Finish') {
+      setModalError({
+        status: true,
+        message: 'Finish order can not be changed',
+      });
+    } else {
+      setModalError({ status: false, message: '' });
+      setInvoiceInfo((prevState) => ({ ...prevState, order: newState }));
+    }
+  };
+
+  const handleProListClick = (data) => {
+    let tempArray = [...invoice.order];
 
     let orderedProduct = {
-      productid: reqProduct.productid,
-      name: reqProduct.name,
-      price: reqProduct.price,
-      type: reqProduct.type,
-      number: 0
+      ...data,
+      number: 1,
     };
-
     let index = tempArray.findIndex(
-      data => data.productid === orderedProduct.productid
+      (element) => element._id === orderedProduct._id
     );
 
     if (index !== -1) {
       tempArray[index].number = tempArray[index].number + 1;
-
-      props.setOrder(tempArray);
+      handleSetState(tempArray);
     } else {
-      let output = { ...orderedProduct, number: orderedProduct.number + 1 };
-      props.setOrder([...props.order, output]);
+      tempArray.push(orderedProduct);
+      handleSetState(tempArray);
     }
   };
 
-  let handleOrdListClick = e => {
-    let tempArray = [...props.order];
-    let reqProduct = Number(e.currentTarget.getAttribute("value"));
+  const handleOrdListClick = (value, index) => {
+    let tempArray = [...invoice.order];
 
-    if (props.order[reqProduct].number === 1) {
-      tempArray.splice(reqProduct, 1);
-      props.setOrder(tempArray);
+    if (invoice.order[index].number === 1) {
+      tempArray.splice(index, 1);
+      handleSetState(tempArray);
     } else {
-      props.order[reqProduct].number = props.order[reqProduct].number - 1;
-      props.setOrder([...tempArray]);
+      invoice.order[index].number = invoice.order[index].number - 1;
+      handleSetState([...tempArray]);
     }
   };
 
   const RenderProductList = () => {
-    return props.productdata.map((value, i) => {
+    return productdata.map((value, i) => {
       return (
         <div
-          className="list-group text-left"
+          className='list-group text-left'
           key={i}
           value={i}
-          onClick={handleProListClick}
+          onClick={() => {
+            handleProListClick(value);
+          }}
         >
-          <div className="list-group-item list-group-item-action flex-column align-items-start">
-            <div className="row">
-              <div className="d-flex w-100 justify-content-between">
-                <h5 className="col">Product: {value.name}</h5>
-                <p className="col text-right">Price: ${value.price}</p>
+          <div className='list-group-item list-group-item-action flex-column align-items-start'>
+            <div className='row'>
+              <div className='d-flex w-100 justify-content-between'>
+                <h5 className='col'>Product: {value.name}</h5>
+                <p className='col text-right'>Price: ${value.price}</p>
               </div>
             </div>
           </div>
@@ -64,19 +76,18 @@ const Order = props => {
   };
 
   const RenderOrderList = () => {
-    return props.order.map((value, i) => {
+    return invoice.order.map((value, i) => {
       return (
         <div
-          className="list-group text-left"
+          className='list-group text-left'
           key={i}
-          value={i}
-          onClick={handleOrdListClick}
+          onClick={() => handleOrdListClick(value, i)}
         >
-          <div className="list-group-item align-items-start">
-            <div className="row">
-              <h5 className="col-6">Product: {value.name}</h5>
-              <p className="col-3">Price: ${value.price}</p>
-              <p className="col-3">Number: {value.number}</p>
+          <div className='list-group-item align-items-start'>
+            <div className='row'>
+              <h5 className='col-6'>Product: {value.name}</h5>
+              <p className='col-3'>Price: ${value.price}</p>
+              <p className='col-3'>Number: {value.number}</p>
             </div>
           </div>
         </div>
@@ -86,7 +97,7 @@ const Order = props => {
 
   const renderTotal = () => {
     let sum = 0;
-    props.order.forEach(e => {
+    invoice.order.forEach((e) => {
       sum += e.number * e.price;
     });
     return sum;
@@ -94,30 +105,30 @@ const Order = props => {
 
   return (
     <div>
-      <div className="list-group">
-        <div className="row text-center">
-          <div className="col my-3">
+      <div className='list-group'>
+        <div className='row text-center'>
+          <div className='col my-3'>
             <h3>Order</h3>
           </div>
-          <div className="col my-3">
+          <div className='col my-3'>
             <h3>Product List</h3>
           </div>
         </div>
-        <div id="list" className="row">
-          <div id="Order" className="col-sm">
+        <div id='list' className='row'>
+          <div id='Order' className='col-sm'>
             <RenderOrderList />
           </div>
           <br />
-          <div id="ProductList" className="col-sm">
+          <div id='ProductList' className='col-sm'>
             <RenderProductList />
           </div>
         </div>
 
-        <div className="row my-3 text-right">
-          <div className="col">
+        <div className='row my-3 text-right'>
+          <div className='col'>
             <h4>Total: {renderTotal()}</h4>
           </div>
-          <div className="col"></div>
+          <div className='col'></div>
         </div>
       </div>
     </div>
