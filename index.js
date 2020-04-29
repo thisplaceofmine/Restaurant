@@ -5,17 +5,19 @@ const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
-mongoose.connect(process.env.mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  server: {
-    socketOptions: {
-      keepAlive: 300000,
-      connectTimeoutMS: 30000,
-    },
-  },
-});
+const connnectDB = async () => {
+  try {
+    await mongoose.connect(process.env.mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+};
+connnectDB()
 
 // mongodb connection check
 mongoose.connection.once('open', () => {
