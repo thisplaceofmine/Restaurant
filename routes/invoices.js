@@ -63,12 +63,12 @@ router.route('/:id').delete(async (req, res) => {
 router.route('/:id').post(async (req, res) => {
   try {
     let temp = await InvoiceModel.findOne({ _id: req.params.id });
-    temp.invoiceid = req.body.invoiceid;
-    temp.order = req.body.order;
-    temp.status = req.body.status;
     const search = await InvoiceModel.findOne({
       invoiceid: req.body.invoiceid,
     });
+    temp.invoiceid = req.body.invoiceid;
+    temp.order = req.body.order;
+    temp.status = req.body.status;
 
     if (search !== null && String(temp._id) !== String(search._id)) {
       res.status(400).json({

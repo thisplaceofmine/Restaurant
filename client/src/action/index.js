@@ -69,7 +69,6 @@ export const deleteProduct = (id, handleSuccess) => async (dispatch) => {
     await axios.delete(`/products/${id}`);
     const response = await axios.get('/products/');
     dispatch({ type: DELETE_PRODUCT, payload: response.data });
-    console.log('success');
     handleSuccess();
   } catch (error) {
     console.log(error);
@@ -130,6 +129,7 @@ export const deleteInvoice = (id, handleSuccess) => async (dispatch) => {
     await axios.delete(`/invoices/${id}`);
     const response = await axios.get('/invoices/');
     dispatch({ type: DELETE_INVOICE, payload: response.data });
+    console.log("Success 2")
     handleSuccess();
   } catch (error) {
     console.log(error);
