@@ -7,13 +7,13 @@ const Header = () => {
       <Link className="active item" to="/">
         Home
       </Link>
-      <Link className="item" to="/products">
+      <Link className="item" to="/product">
         Products
       </Link>
       {/* <Link className="item" to="/createinvioce">
         New Invoice
       </Link> */}
-      <Link className="item" to="/invoices">
+      <Link className="item" to="/invoice">
         Invoices List
       </Link>
       <Link className="item" to="/report">

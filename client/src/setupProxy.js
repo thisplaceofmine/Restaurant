@@ -8,5 +8,9 @@ module.exports = function (app) {
   app.use(
     '/invoices',
     createProxyMiddleware({ target: 'http://localhost:5000' })
-  );
+  )
+  app.use(
+    '/report',
+    createProxyMiddleware({ target: 'http://localhost:5000' })
+  )
 };

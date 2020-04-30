@@ -48,10 +48,10 @@ const Report = () => {
   return (
     <div>
       <h2 className="my-3">
-        Today's Revenue: $
+        Today's Revenue: 
         {isEmpty(storeData.Report)
           ? "Loading"
-          : storeData.Report[0].dailyRenvenue}
+          : `$ ${storeData.Report[0].dailyRenvenue}`}
       </h2>
       <div className="my-2 d-flex">
         <h3>Today Top {noTopSeller} Seller</h3>

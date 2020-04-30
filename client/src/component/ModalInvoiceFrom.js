@@ -27,11 +27,6 @@ const ModalProductForm = (props) => {
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } else if (JSON.stringify(props.quarry) === JSON.stringify(invoiceInfo)) {
-      setModalError({
-        status: true,
-        message: 'Nothing has Changed, this will not be submitted',
-      });
     } else if (props.quarry._id !== '') {
       setIsLoading(1);
       dispatch(
@@ -45,7 +40,7 @@ const ModalProductForm = (props) => {
   };
 
   const handleErrRes = (mg) => {
-    setIsLoading(0)
+    setIsLoading(0);
     setModalError({ status: true, message: mg });
   };
 
@@ -163,15 +158,16 @@ const ModalProductForm = (props) => {
             <Row className='d-flex justify-content-between'>
               <div>{renderLoadingHelper()}</div>
               <div>
-                <Button
+                {/* <Button
                   onClick={() => {
-                    const temp = JSON.stringify(props.quarry);
-                    const temp2 = JSON.stringify(invoiceInfo);
-                    console.log(temp === temp2);
+                    const temp = JSON.stringify(props.quarry.order);
+                    const temp2 = JSON.stringify(invoiceInfo.order);
+                    console.log(temp);
+                    console.log(temp2);
                   }}
                 >
                   Debug
-                </Button>
+                </Button> */}
                 <Button
                   className='mx-2'
                   onClick={() => {

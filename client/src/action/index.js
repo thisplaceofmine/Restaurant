@@ -138,6 +138,7 @@ export const deleteInvoice = (id, handleSuccess) => async (dispatch) => {
 
 export const fetchReport = () => async (dispatch) => {
   try {
+    console.log("T1")
     const response = await axios.get('/report/invoices');
     dispatch({ type: FETCH_REPORT, payload: response.data });
   } catch (error) {

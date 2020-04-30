@@ -64,7 +64,7 @@ router.route('/:id').post(async (req, res) => {
   try {
     let temp = await InvoiceModel.findOne({ _id: req.params.id });
     const search = await InvoiceModel.findOne({
-      invoiceid: req.body.invoiceid,
+      invoiceid: req.body.invoiceqid,
     });
     temp.invoiceid = req.body.invoiceid;
     temp.order = req.body.order;

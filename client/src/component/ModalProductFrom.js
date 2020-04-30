@@ -179,7 +179,7 @@ const ModalProductForm = (props) => {
                   placeholder='Price'
                   onChange={(e) => {
                     const tempValue = e.target.value;
-                    if (tempValue == -1) {
+                    if (Number(tempValue) === -1) {
                       return null
                     } else {
                       setProductInfo((prevState) => ({

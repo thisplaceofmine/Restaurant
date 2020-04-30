@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import { isEmpty, isUndefined } from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { fetchProductList, fetchInvoiceList } from '../action';
 import ModalInvoiceFrom from './ModalInvoiceFrom';
@@ -51,9 +51,9 @@ function Invoices(props) {
       >
         Create New Invoice
       </button>
-      <button className='ui right floated primary button' onClick={() => {}}>
+      {/* <button className='ui right floated primary button' onClick={() => {}}>
         Debug
-      </button>
+      </button> */}
       <br />
 
       <ModalInvoiceFrom

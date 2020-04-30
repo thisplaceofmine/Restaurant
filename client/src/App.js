@@ -15,8 +15,8 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact component={Dashboard} />
-          <Route path="/products" exact component={Products} />
-          <Route path="/invoices" exact component={Invoices} />
+          <Route path="/product" exact component={Products} />
+          <Route path="/invoice" exact component={Invoices} />
           {/* <Route path="/createinvioce" exact component={CreateInvoice} /> */}
           <Route path="/report" exact component={Report} />
         </Switch>
